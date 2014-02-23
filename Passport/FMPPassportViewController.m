@@ -88,7 +88,9 @@ const NSInteger FMPListViewControllerTabItemDefaultTag = INT_MAX-1;
     if ( self.dataSource != passport.places ) {
         [self setDataSource:passport.places];
         [self.tableView reloadData];
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        if ( passport.places.count > 0 ) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
     }
 }
 
