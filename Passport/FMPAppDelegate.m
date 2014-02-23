@@ -8,11 +8,33 @@
 
 #import "FMPAppDelegate.h"
 
+#import "FMPListViewController.h"
+#import "FMPJournalViewController.h"
+
+#import "FMPAppearanceManager.h"
+
 @implementation FMPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    UIWindow *tmpWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    UITabBarController *tmpTabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
+    
+    FMPListViewController *tmpListViewController = [[FMPListViewController alloc] init];
+    UINavigationController *tmpListNavController = [[UINavigationController alloc] initWithRootViewController:tmpListViewController];
+    FMPJournalViewController *tmpJournalViewController = [[FMPJournalViewController alloc] init];
+    UINavigationController *tmpJournalNavController = [[UINavigationController alloc] initWithRootViewController:tmpJournalViewController];
+    
+    [tmpTabBarController setViewControllers:@[tmpListNavController, tmpJournalNavController]];
+    
+    [tmpWindow setRootViewController:tmpTabBarController];
+    [self setWindow:tmpWindow];
+    [self.window makeKeyAndVisible];
+    
+    [FMPAppearanceManager configureAppearance];
+    
     return YES;
 }
 							
