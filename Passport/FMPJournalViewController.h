@@ -10,7 +10,7 @@
 
 extern const NSInteger FMPJournalViewControllerTabItemDefaultTag;
 
-@interface FMPJournalCell : FMPTableViewCell
+@interface FMPJournalEntryCell : FMPTableViewCell
 @end
 
 @interface FMPJournalViewController : FMPTableViewController

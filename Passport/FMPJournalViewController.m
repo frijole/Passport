@@ -13,10 +13,44 @@ const NSInteger FMPJournalViewControllerTabItemDefaultTag = INT_MAX-2;
 #define kFMPJournalViewCellIdentifier @"FMPJournalCellIdentifier"
 
 
-@interface FMPJournalCell ()
+@interface FMPJournalEntryCell ()
+
+@property (nonatomic, weak) UILabel *accessoryLabel;
+
 @end
 
-@implementation FMPJournalCell
+
+@implementation FMPJournalEntryCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if ( self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] )
+    {
+        UILabel *tmpAccecssoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 40.0f)];
+        [tmpAccecssoryLabel setTextAlignment:NSTextAlignmentRight];
+        [self setAccessoryView:tmpAccecssoryLabel];
+        [self setAccessoryLabel:tmpAccecssoryLabel];
+    }
+    
+    return self;
+}
+
+- (void)setDataObject:(NSObject *)dataObject
+{
+    [super setDataObject:dataObject];
+    
+    if ( [dataObject isKindOfClass:[FMPStamp class]] ) {
+        FMPStamp *tmpStamp = (FMPStamp *)dataObject;
+        self.textLabel.text = tmpStamp.place.title;
+        self.detailTextLabel.text = tmpStamp.passport.title;
+        self.accessoryLabel.text = tmpStamp.date.description; // TODO: use date formatter
+    }
+}
+
++ (CGFloat)heightForDataObject:(NSObject *)dataObject
+{
+    return 60.0f;
+}
 
 + (NSString *)reuseIdentifier
 {
@@ -35,26 +69,20 @@ const NSInteger FMPJournalViewControllerTabItemDefaultTag = INT_MAX-2;
 {
     if ( self = [super initWithDataSource:@[]] ) {
         // Post-initialization customization.
+        [self setTitle:@"Journal"];
+        [self setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:FMPJournalViewControllerTabItemDefaultTag]];
+        [self setDefaultCellClass:[FMPJournalEntryCell class]];
     }
     
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view
+    [super viewWillAppear:animated];
     
-    [self setTitle:@"Journal"];
-    [self setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:FMPJournalViewControllerTabItemDefaultTag]];
-    
-    [self setDefaultCellClass:[FMPTableViewCell class]];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self setDataSource:[FMPDataHandler stamps]];
+    [self.tableView reloadData];
 }
 
 @end

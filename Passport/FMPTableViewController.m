@@ -8,7 +8,7 @@
 
 #import "FMPTableViewController.h"
 
-#define kFMPTableViewCellIdentifier  @"FMPTableViewControllerDefaultCellIdentifier"
+#define kFMPTableViewCellIdentifier  @"FMPTableViewDefaultCellIdentifier"
 
 @interface FMPTableViewCell ()
 @end
@@ -29,8 +29,6 @@
 
 
 @interface FMPTableViewController ()
-
-@property (nonatomic, strong) NSArray *dataSource;
 
 @end
 
@@ -56,7 +54,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    if ( !self.defaultCellClass ) {
+        [self setDefaultCellClass:[FMPTableViewCell class]];
+    }
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -64,10 +66,12 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning
+- (void)setDefaultCellClass:(Class)defaultCellClass
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    _defaultCellClass = defaultCellClass;
+    
+    if ( [defaultCellClass respondsToSelector:@selector(reuseIdentifier)] )
+        [self.tableView registerClass:defaultCellClass forCellReuseIdentifier:[defaultCellClass reuseIdentifier]];
 }
 
 #pragma mark - Table view data source

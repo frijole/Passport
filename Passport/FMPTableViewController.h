@@ -24,6 +24,7 @@
 - (instancetype)initWithDataSource:(NSArray *)dataSource; // defaults to UITableViewStylePlain
 - (instancetype)initWithStyle:(UITableViewStyle)style andDataSource:(NSArray *)dataSource;
 
+@property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic) Class defaultCellClass;
 
 @end

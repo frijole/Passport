@@ -12,7 +12,7 @@
 
 + (void)configureAppearance
 {
-    NSLog(@"customize!");
+    // NSLog(@"customize!");
 }
 
 @end

@@ -8,9 +8,10 @@
 
 #import "FMPAppDelegate.h"
 
-#import "FMPListViewController.h"
+#import "FMPPassportViewController.h"
 #import "FMPJournalViewController.h"
 
+#import "FMPDataHandler.h"
 #import "FMPAppearanceManager.h"
 
 @implementation FMPAppDelegate
@@ -22,7 +23,14 @@
     
     UITabBarController *tmpTabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
     
-    FMPListViewController *tmpListViewController = [[FMPListViewController alloc] init];
+    // see if we have a first passport to load
+    FMPPassport *tmpPassport = nil;
+    NSArray *tmpPassports = [FMPDataHandler passports];
+    if ( tmpPassports && tmpPassports.count > 0 ) {
+        tmpPassport = [tmpPassports firstObject];
+    }
+    
+    FMPPassportViewController *tmpListViewController = [[FMPPassportViewController alloc] initWithPassport:tmpPassport];
     UINavigationController *tmpListNavController = [[UINavigationController alloc] initWithRootViewController:tmpListViewController];
     FMPJournalViewController *tmpJournalViewController = [[FMPJournalViewController alloc] init];
     UINavigationController *tmpJournalNavController = [[UINavigationController alloc] initWithRootViewController:tmpJournalViewController];
@@ -32,7 +40,7 @@
     [tmpWindow setRootViewController:tmpTabBarController];
     [self setWindow:tmpWindow];
     [self.window makeKeyAndVisible];
-    
+        
     [FMPAppearanceManager configureAppearance];
     
     return YES;
