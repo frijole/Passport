@@ -8,10 +8,7 @@
 
 #import "FMPPassportViewController.h"
 
-const NSInteger FMPListViewControllerTabItemDefaultTag = INT_MAX-1;
-
 #define kFMPListCellIdentifier @"FMPListCellIdentifier"
-
 
 @interface FMPPassportPlaceCell ()
 @end
@@ -54,7 +51,9 @@ const NSInteger FMPListViewControllerTabItemDefaultTag = INT_MAX-1;
     if ( self = [super initWithDataSource:passport.places] ) {
         // Post-initialization customization.
         [self setPassport:passport];
-        [self setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:FMPListViewControllerTabItemDefaultTag]];
+        [self setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Places"
+                                                          image:[UIImage imageNamed:@"places-off"]
+                                                  selectedImage:[UIImage imageNamed:@"places-on"]]];
         [self setDefaultCellClass:[FMPPassportPlaceCell class]];
     }
     

@@ -8,8 +8,6 @@
 
 #import "FMPTableViewController.h"
 
-extern const NSInteger FMPJournalViewControllerTabItemDefaultTag;
-
 @interface FMPJournalEntryCell : FMPTableViewCell
 @end
 

@@ -8,17 +8,13 @@
 
 #import "FMPJournalViewController.h"
 
-const NSInteger FMPJournalViewControllerTabItemDefaultTag = INT_MAX-2;
-
 #define kFMPJournalViewCellIdentifier @"FMPJournalCellIdentifier"
-
 
 @interface FMPJournalEntryCell ()
 
 @property (nonatomic, weak) UILabel *accessoryLabel;
 
 @end
-
 
 @implementation FMPJournalEntryCell
 
@@ -70,7 +66,9 @@ const NSInteger FMPJournalViewControllerTabItemDefaultTag = INT_MAX-2;
     if ( self = [super initWithDataSource:@[]] ) {
         // Post-initialization customization.
         [self setTitle:@"Journal"];
-        [self setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:FMPJournalViewControllerTabItemDefaultTag]];
+        [self setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Journal"
+                                                          image:[UIImage imageNamed:@"journal-off"]
+                                                  selectedImage:[UIImage imageNamed:@"journal-on"]]];
         [self setDefaultCellClass:[FMPJournalEntryCell class]];
     }
     

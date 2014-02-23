@@ -10,8 +10,6 @@
 
 #import "FMPSelectPassportViewController.h"
 
-extern const NSInteger FMPListViewControllerTabItemDefaultTag;
-
 @interface FMPPassportPlaceCell : FMPTableViewCell
 @end
 
